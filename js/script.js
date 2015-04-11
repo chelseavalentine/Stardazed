@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var width = window.innerWidth;
 var height = window.innerHeight;
 
@@ -203,3 +204,13 @@ function ()
 //Based arrow key input, it simulates someone moving
 var controls = new THREE.TrackballControls(camera);
 controls.target
+=======
+var Myo = require('myo');
+
+var myMyo = Myo.create();
+myMyo.on('fist', function(edge){
+    if(!edge) return;
+    console.log('Hello Myo!');
+    myMyo.vibrate();
+});
+>>>>>>> f025633ce141986aa6021e5223b0d013f4bc3588
