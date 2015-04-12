@@ -1,3 +1,58 @@
+.font, .header, h1, button, .text {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  color: white;
+  text-align: left; }
 
+.header, h1, button {
+  font-weight: 700; }
+
+.text {
+  font-weight: 400; }
+
+h1 {
+  font-size: 40px;
+  display: block;
+  text-align: center; }
+
+button {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 1px;
+  width: 200px;
+  text-align: center;
+  border: 0;
+  padding: 10px;
+  background-color: #00bcd4; }
+
+button:hover {
+  background-color: #0097a7; }
+
+.frame {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  visibility: none; }
+
+#frame1 {
+  visibility: visible; }
+
+.text {
+  position: relative;
+  width: 70%; }
+
+.supercenter {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+#stats2 {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

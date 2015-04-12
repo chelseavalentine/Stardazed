@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset='utf-8'>
+    <title>Face Detect</title>
+
+    <style>
+    	body {
+    		margin: 0;
+    		padding: 0;
+    		background-color: white;
+    	}
+
+      #video {
+        position: relative;
+        margin: 0;
+      }
+    </style>
+    
+    <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript" src="js/three.min.js"></script>
+    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
+    <script type="text/javascript" src="js/physi.js"></script>
+    <script type="text/javascript" src="js/dat.gui.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+
+  </head>
+  <body>
+  <center>
+
+    <!--Opening scene-->
+    <div class="frame" id="frame1">
+      <div class="text">
+      <center>
+        <h1 id="title">Face detect</h1>
+        <br><br>
+        <button class="">BEGIN</button>
+      </center>
+      </div>
+    </div>
+
+    <!--Camera scene-->
+
+    <!-- <div class="input-frame">
+      <div class="input-container">
+        <video muted autoplay id="video" loop="loop" width="320" height="180"></video>
+      </div>
+    </div> -->
+
+
+  	<script type="text/javascript" src="js/facedetect.js"></script>
+    <script type="text/javascript">
+      //Initialize variables & set key variables
+      var video, stream, mediaRecorder;
+      var mediaConstraints = {video: true};
+
+      window.onload = function() {
+        CameraInit();
+      }
+
+      function CameraInit() {
+        navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
+      }
+
+      function startRecording() {
+        video.play();
+        mediaRecorder = new MediaStreamRecorder(stream);
+        mediaRecorder.mimeType = 'video/webm';
+        mediaRecorder.videoWidth  = 320;
+        mediaRecorder.videoHeight = 240;
+        mediaRecorder.ondataavailable = function(blob) {
+          var video = document.getElementById("videodata");
+          video.src = URL.createObjectURL(blob);
+          video.play();
+        };
+      }
+        
+      function onMediaInit(Stream) {
+        video = document.getElementById('video');
+        video.src = URL.createObjectURL(Stream);
+        console.log(video);
+        video.height = 240;
+        video.width = 320;
+        video.autoplay = "true";
+        stream = Stream;
+      }
+      
+      function onMediaError(e) {
+        console.error('media error', e);
+      }
+    </script>
+  </center>
+  </body>
+</html>

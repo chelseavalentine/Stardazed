@@ -1,0 +1,32 @@
+@import 'color';
+
+.frame {
+	margin: 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: $black;
+	visibility: none;
+}
+
+#frame1 {
+	visibility: visible;
+}
+
+.text {
+	position: relative;
+	width: 70%;
+}
+
+.supercenter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#stats2 {
+	display: none;
+}
