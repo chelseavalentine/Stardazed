@@ -18,10 +18,13 @@ $("#frame1").hover(spawnCircles());
 
 var colors = ['#ffed57', '#ff9700', '#8ac249', '#00bbd3'];
 var currentMousePosx, currentMousePosy;
-$(document).mousemove(function(event) {
+$(window).ready(function(){
+	$(document).mousemove(function(event) {
         currentMousePosx = event.pageX;
         currentMousePosy = event.pageY;
     });
+})
+
 function spawnCircles(event) {
 	$("<div></div>")
 		.appendTo("#frame1")
