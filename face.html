@@ -4,8 +4,13 @@
     <meta charset='utf-8'>
     <title>Face Detect</title>
 
+<<<<<<< HEAD
   <style>
     .rect {
+=======
+    <style>
+      .rect {
+>>>>>>> 162ca0e630a4f1beacc04055567ee847b99daa16
         border: 2px solid #a64ceb;
         left: -1000px;
         position: absolute;
@@ -21,8 +26,13 @@
         position: absolute;
         margin: 0;
       }
+<<<<<<< HEAD
   </style>
 
+=======
+    </style>
+    
+>>>>>>> 162ca0e630a4f1beacc04055567ee847b99daa16
     <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
 
@@ -37,8 +47,13 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
     <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
+<<<<<<< HEAD
 </head>
 <body>
+=======
+  </head>
+  <body>
+>>>>>>> 162ca0e630a4f1beacc04055567ee847b99daa16
   <center>
 
     <!--Opening scene-->
@@ -49,6 +64,7 @@
         <br><br>
         <button class="begin">PRESS ENTER</button>
       </center>
+<<<<<<< HEAD
       </div>
     </div>
 
@@ -87,6 +103,48 @@
         </div>
       </div>
     </div>
+=======
+      </div>
+    </div>
+
+    <div class="frame" id="frame2">
+      <div class="text" id="text2">
+      <center>
+        <h1>Selections</h1>
+        <p>Use your arrow keys to choose a selection. Then press space to confirm your selection.</p>
+        <br><br>
+        <!--Male-->
+        <div class="selections">
+          <button class="person" id="bradpitt">[P] Brad Pitt</button>
+          <button class="person" id="ryangosling">[G] Ryan Gosling</button>
+          <button class="person" id="jamesfranco">[F] James Franco</button>
+          <button class="person" id="robertdowney">[D] Robert Downey Jr</button>
+          <!--Nicholas Cage-->
+          <button class="person" id="nicholascage">[S] Surprise me</button>
+        </div>
+
+        <!--Female-->
+        <div class="selections">
+          <button class="person" id="jamiechung">[C] Jamie Chung</button>
+          <button class="person" id="beyonce">[B] Beyonce</button>
+          <button class="person" id="kimkardashian">[K] Kim Kardashian</button>
+          <button class="person" id="jenniferlawrence">[L] Jennifer Lawrence</button>
+        </div>
+      </center>
+      </div>
+    </div>
+    <!--Camera scene-->
+    <div class="frame" id="frame3">
+      <div class="input-frame">
+        <div class="input-container">
+          <video muted autoplay id="video" loop="loop"></video>
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+>>>>>>> 162ca0e630a4f1beacc04055567ee847b99daa16
     <script type="text/javascript" src="js/facedetect.js"></script>
     <script type="text/javascript">
       window.onload = function() {
@@ -174,7 +232,14 @@
         rect.style.top = (vid.offsetTop + y) + 'px';
       };
     };
+<<<<<<< HEAD
     </script>
   </center>
 </body>
+=======
+
+    </script>
+  </center>
+  </body>
+>>>>>>> 162ca0e630a4f1beacc04055567ee847b99daa16
 </html>

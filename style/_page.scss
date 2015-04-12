@@ -9,11 +9,12 @@
 	height: 100%;
 	width: 100%;
 	background-color: $black;
-	visibility: none;
+	display: block;
+	opacity: 0;
 }
 
 #frame1 {
-	visibility: visible;
+	opacity: 1;
 }
 
 .text {
@@ -21,10 +22,16 @@
 	width: 70%;
 }
 
-.supercenter {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+#text1 {
+	top: 35%;
+}
+
+#frame2 {
+	width: 100%;
+}
+
+#text2 {
+	top: 20%;
 }
 
 #stats2 {

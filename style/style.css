@@ -1,19 +1,21 @@
-.font, .header, h1, button, .text {
+.font, .header, h1, button, .paragraph, p {
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  color: white;
-  text-align: left; }
+  color: white; }
 
 .header, h1, button {
   font-weight: 700; }
 
-.text {
+.paragraph, p {
   font-weight: 400; }
 
 h1 {
   font-size: 40px;
   display: block;
   text-align: center; }
+
+p {
+  font-size: 1em; }
 
 button {
   text-transform: uppercase;
@@ -24,10 +26,11 @@ button {
   text-align: center;
   border: 0;
   padding: 10px;
-  background-color: #00bcd4; }
+  background-color: #00bcd4;
+  z-index: 2; }
 
 button:hover {
-  background-color: #0097a7; }
+  background-color: #ff436c; }
 
 .frame {
   margin: 0;
@@ -38,21 +41,37 @@ button:hover {
   height: 100%;
   width: 100%;
   background-color: #000;
-  visibility: none; }
+  display: block;
+  opacity: 0; }
 
 #frame1 {
-  visibility: visible; }
+  opacity: 1; }
 
 .text {
   position: relative;
   width: 70%; }
 
-.supercenter {
-  display: flex;
-  align-items: center;
-  justify-content: center; }
+#text1 {
+  top: 35%; }
+
+#frame2 {
+  width: 100%; }
+
+#text2 {
+  top: 20%; }
 
 #stats2 {
   display: none; }
+
+.person {
+  background-color: #8bc34a;
+  display: block;
+  width: 250px;
+  margin-bottom: 15px; }
+
+.selections {
+  display: inline-block;
+  margin-right: 25px;
+  vertical-align: top; }
 
 /*# sourceMappingURL=style.css.map */
