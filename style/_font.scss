@@ -4,7 +4,6 @@
 	font-family: 'Roboto', sans-serif;
 	margin: 0;
 	color: white;
-	text-align: left;
 }
 
 .header {
@@ -12,7 +11,7 @@
 	font-weight: 700;
 }
 
-.text {
+.paragraph {
 	@extend .font;
 	font-weight: 400;
 }
@@ -24,6 +23,10 @@ h1 {
 	text-align: center;
 }
 
+p {
+	@extend .paragraph;
+	font-size: 1em;
+}
 //Other elements
 button {
 	@extend .header;
@@ -36,6 +39,7 @@ button {
 	border: 0;
 	padding: 10px;
 	background-color: $cyan500;
+	z-index: 2;
 }
 
 button:hover {

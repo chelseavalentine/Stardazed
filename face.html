@@ -26,18 +26,17 @@
     <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
 
-    <script src="../build/tracking-min.js"></script>
-    <script src="../build/data/face-min.js"></script>
-    <script src="../build/data/mouth-min.js"></script>
+    <script type="text/javascript" src="../build/tracking-min.js"></script>
+    <script type="text/javascript" src="../build/data/face-min.js"></script>
+    <script type="text/javascript" src="../build/data/mouth-min.js"></script>
     <script type="text/javascript" src="js/three.min.js"></script>
     <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
     <script type="text/javascript" src="js/physi.js"></script>
     <script type="text/javascript" src="js/dat.gui.js"></script>
     <script type="text/javascript" src="js/stats.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
-    <script src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
-
+    <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+    <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
   </head>
   <body>
   <center>
@@ -48,17 +47,44 @@
       <center>
         <h1 id="title">Face Detect</h1>
         <br><br>
-        <button class="">BEGIN</button>
+        <button class="begin">PRESS ENTER</button>
       </center>
       </div>
     </div>
 
-    <!--Camera scene-->
+    <div class="frame" id="frame2">
+      <div class="text" id="text2">
+      <center>
+        <h1>Selections</h1>
+        <p>Use your arrow keys to choose a selection. Then press space to confirm your selection.</p>
+        <br><br>
+        <!--Male-->
+        <div class="selections">
+          <button class="person" id="bradpitt">[P] Brad Pitt</button>
+          <button class="person" id="ryangosling">[G] Ryan Gosling</button>
+          <button class="person" id="jamesfranco">[F] James Franco</button>
+          <button class="person" id="robertdowney">[D] Robert Downey Jr</button>
+          <!--Nicholas Cage-->
+          <button class="person" id="nicholascage">[S] Surprise me</button>
+        </div>
 
-    <div class="input-frame">
-      <div class="input-container">
-        <video muted autoplay id="video" loop="loop" width="320" height="180"></video>
-        <canvas id="canvas" width="320" height="240"></canvas>
+        <!--Female-->
+        <div class="selections">
+          <button class="person" id="jamiechung">[C] Jamie Chung</button>
+          <button class="person" id="beyonce">[B] Beyonce</button>
+          <button class="person" id="kimkardashian">[K] Kim Kardashian</button>
+          <button class="person" id="jenniferlawrence">[L] Jennifer Lawrence</button>
+        </div>
+      </center>
+      </div>
+    </div>
+    <!--Camera scene-->
+    <div class="frame" id="frame3">
+      <div class="input-frame">
+        <div class="input-container">
+          <video muted autoplay id="video" loop="loop"></video>
+          <canvas id="canvas"></canvas>
+        </div>
       </div>
     </div>
 
