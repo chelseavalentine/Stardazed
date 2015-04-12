@@ -20,7 +20,10 @@
       #video, canvas {
         position: absolute;
         margin: 0;
+        width: 100%;
+        height: 100%;
       }
+
     </style>
     
     <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
@@ -108,8 +111,6 @@
     video.play();
     mediaRecorder = new MediaStreamRecorder(stream);
     mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
-    mediaRecorder.videoWidth  = 320;
-    mediaRecorder.videoHeight = 240;
     mediaRecorder.ondataavailable = function(blob) {
       var video = document.getElementById("video");
       video.src = URL.createObjectURL(blob);
@@ -149,19 +150,19 @@ $(document).keydown(function(e) {
   switch(e.which) {
     case 66:  //B
       //alert("Beyonce");
-      var INDEX = 3;
+      INDEX = 3;
       fadeDat();
       break;
 
     case 67: //C
      // alert("Jamie Chung");
-      var INDEX = 0;
+      INDEX = 0;
       fadeDat();
       break;
 
     case 68: //D
       //alert("Robert Downey Jr");
-      var INDEX = 2;
+      INDEX = 2;
       fadeDat();
       break;
 
