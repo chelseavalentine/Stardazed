@@ -4,22 +4,93 @@
   	<meta charset='utf-8'>
     <title>Hands</title>
     <style>
-    	body {
-    		margin: 0;
-    		padding: 0;
-    		background-color: white;
-    	}
     </style>
     <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
-    <script type="text/javascript" src="js/three.min.js"></script>
-    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
-    <script type="text/javascript" src="js/physi.js"></script>
-    <script type="text/javascript" src="js/dat.gui.js"></script>
-    <script type="text/javascript" src="js/stats.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+  
   </head>
   <body>
   	<div id="stats"></div>
   	<script type="text/javascript" src="js/script.js"></script>
+    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+    <script>
+  window.onload = function() {
+    trackingInit();
+    CameraInit();
+  }
+
+  var mediaConstraints = { video: true };
+  var index = 1;
+  var mediaRecorder;
+  var video;
+  var stream;
+  var os_index = 0;
+  var offset = new Array(2);
+  var motion_index;
+  var play_count = 0;
+
+  function CameraInit() {
+    navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
+  }
+
+  function startRecording() {
+
+    video.play();
+    mediaRecorder = new MediaStreamRecorder(stream);
+    mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
+    mediaRecorder.videoWidth  = 320;
+    mediaRecorder.videoHeight = 240;
+    mediaRecorder.ondataavailable = function(blob) {
+      var video = document.getElementById("videodata");
+      video.src = URL.createObjectURL(blob);
+      video.play();
+    };
+    console.log(mediaRecorder);
+
+    var timeInterval = 600 * 1000;
+    timeInterval = parseInt(timeInterval);
+    // get blob after specific time interval
+    setTimeout(function() {
+      video.pause();
+      mediaRecorder.stop();
+    }, timeInterval);
+    mediaRecorder.start(timeInterval);
+  }
+
+  //
+  function onMediaInit(Stream) {
+    video = document.getElementById('video');
+    video.src = URL.createObjectURL(Stream);
+    console.log(video);
+    video.height = 240;
+    video.width = 320;
+    video.autoplay = "true";
+    stream = Stream;
+  }
+
+    function onMediaError(e) {
+      console.error('media error', e);
+    }
+
+  // below function via: http://goo.gl/B3ae8c
+  function bytesToSize(bytes) {
+   var k = 1000;
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes === 0) return '0 Bytes';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)),10);
+   return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+ }
+
+ function trackingInit() {
+
+ };
+};
+
+</script>
+  <div class="input-frame">
+      <div class="input-container">
+        <p>Input camera</p>
+        <video muted autoplay id="video" loop="loop" width="320" height="180"></video>
+      </div>
+    </div>
   </body>
 </html>

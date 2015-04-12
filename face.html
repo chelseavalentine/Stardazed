@@ -1,98 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-  	<meta charset='utf-8'>
-    <title>Face Detect</title>
+<head>
+  <meta charset="utf-8">
+  <title>Chroma Keyboard</title>
 
-    <style>
-    	body {
-    		margin: 0;
-    		padding: 0;
-    		background-color: white;
-    	}
+  <script src="../build/tracking-min.js"></script>
+   <script src="../build/data/face-min.js"></script>
+   <script src="../build/data/mouth-min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
+  <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <style>
+    .rect {
+    border: 2px solid #a64ceb;
+    left: -1000px;
+    position: absolute;
+    top: -1000px;
+  }
+    #video, canvas {
+      position: absolute;
 
-      #video {
-        position: relative;
-        margin: 0;
-      }
-    </style>
-    
-    <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
-
-    <script type="text/javascript" src="js/three.min.js"></script>
-    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
-    <script type="text/javascript" src="js/physi.js"></script>
-    <script type="text/javascript" src="js/dat.gui.js"></script>
-    <script type="text/javascript" src="js/stats.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
-
-  </head>
-  <body>
-  <center>
-
-    <!--Opening scene-->
-    <div class="frame" id="frame1">
-      <div class="text">
-      <center>
-        <h1 id="title">Face detect</h1>
-        <br><br>
-        <button class="">BEGIN</button>
-      </center>
+    }
+  </style>
+</head>
+<body>
+  
+  <span class="left">
+    <div class="input-frame">
+      <div class="input-container">
+        <p>Input camera</p>
+        <video muted autoplay id="video" loop="loop" width="320" height="180"></video>
+        <canvas id="canvas" width="320" height="240"></canvas>
       </div>
     </div>
+  </span>
 
-    <!--Camera scene-->
+<script>
+  window.onload = function() {
+    trackingInit();
+    CameraInit();
+  }
 
-    <!-- <div class="input-frame">
-      <div class="input-container">
-        <video muted autoplay id="video" loop="loop" width="320" height="180"></video>
-      </div>
-    </div> -->
+  var mediaConstraints = { video: true };
+  var index = 1;
+  var mediaRecorder;
+  var video;
+  var stream;
+  var play_count = 0;
+
+  function CameraInit() {
+    navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
+  }
+
+  function startRecording() {
+
+    video.play();
+    mediaRecorder = new MediaStreamRecorder(stream);
+    mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
+    mediaRecorder.videoWidth  = 320;
+    mediaRecorder.videoHeight = 240;
+    mediaRecorder.ondataavailable = function(blob) {
+      var video = document.getElementById("video");
+      video.src = URL.createObjectURL(blob);
+      video.play();
+    };
+    console.log(mediaRecorder);
+
+    var timeInterval = 600 * 1000;
+    timeInterval = parseInt(timeInterval);
+    // get blob after specific time interval
+    setTimeout(function() {
+      video.pause();
+      mediaRecorder.stop();
+    }, timeInterval);
+    mediaRecorder.start(timeInterval);
+  }
+
+  //
+  function onMediaInit(Stream) {
+    video = document.getElementById('video');
+    video.src = URL.createObjectURL(Stream);
+    console.log(video);
+    video.height = 240;
+    video.width = 320;
+    video.autoplay = "true";
+    stream = Stream;
+  }
+
+    function onMediaError(e) {
+      console.error('media error', e);
+    }
 
 
-  	<script type="text/javascript" src="js/facedetect.js"></script>
-    <script type="text/javascript">
-      //Initialize variables & set key variables
-      var video, stream, mediaRecorder;
-      var mediaConstraints = {video: true};
+ function trackingInit() {
+  var count = 0;
+  var vid = document.getElementById('video');
+  var inputContainer = document.querySelector('.input-container');
 
-      window.onload = function() {
-        CameraInit();
-      }
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  var tracker = new tracking.ObjectTracker("face");
+  tracker.setInitialScale(4);
+  tracker.setStepSize(2);
+  tracker.setEdgesDensity(0.1);
+  tracking.track('#video', tracker);
 
-      function CameraInit() {
-        navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
-      }
+  var imageURLs = [];
+  var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr"];
+  imageURLs.push("../img/jamiechung.png");
+  imageURLs.push("../img/kimk.png");
+  imageURLs.push("../img/robertdowneyjr.png");
 
-      function startRecording() {
-        video.play();
-        mediaRecorder = new MediaStreamRecorder(stream);
-        mediaRecorder.mimeType = 'video/webm';
-        mediaRecorder.videoWidth  = 320;
-        mediaRecorder.videoHeight = 240;
-        mediaRecorder.ondataavailable = function(blob) {
-          var video = document.getElementById("videodata");
-          video.src = URL.createObjectURL(blob);
-          video.play();
-        };
-      }
-        
-      function onMediaInit(Stream) {
-        video = document.getElementById('video');
-        video.src = URL.createObjectURL(Stream);
-        console.log(video);
-        video.height = 240;
-        video.width = 320;
-        video.autoplay = "true";
-        stream = Stream;
-      }
-      
-      function onMediaError(e) {
-        console.error('media error', e);
-      }
-    </script>
-  </center>
-  </body>
+  INDEX = 0;
+  tracker.on('track', function(event) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    var img = new Image();
+    img.src = imageURLs[INDEX];
+    event.data.forEach(function(rect) {
+      context.strokeStyle = '#a64ceb';
+      context.drawImage(img, rect.x, rect.y, rect.width, rect.height)
+
+
+
+
+    });
+  });
+
+
+      tracking.track('#video', tracker);
+      window.plot = function(x, y, w, h, color) {
+        var rect = document.createElement('div');
+        document.querySelector('.input-container').appendChild(rect);
+        rect.classList.add('rect');
+        rect.style.border = '2px solid ' + color;
+        rect.style.width = w + 'px';
+        rect.style.height = h + 'px';
+        rect.style.left = (vid.offsetLeft + x) + 'px';
+        rect.style.top = (vid.offsetTop + y) + 'px';
+      };
+    };
+
+  
+
+</script>
+</body>
 </html>
