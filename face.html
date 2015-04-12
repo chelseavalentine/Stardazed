@@ -1,60 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Chroma Keyboard</title>
+  <head>
+    <meta charset='utf-8'>
+    <title>Face Detect</title>
 
-  <script src="../build/tracking-min.js"></script>
-   <script src="../build/data/face-min.js"></script>
-   <script src="../build/data/mouth-min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
-  <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
-  <link rel="stylesheet" type="text/css" href="style/style.css">
   <style>
     .rect {
-    border: 2px solid #a64ceb;
-    left: -1000px;
-    position: absolute;
-    top: -1000px;
-  }
-    #video, canvas {
-      position: absolute;
+        border: 2px solid #a64ceb;
+        left: -1000px;
+        position: absolute;
+        top: -1000px;
+      }
 
-    }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #video, canvas {
+        position: absolute;
+        margin: 0;
+      }
   </style>
+
+    <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript" src="../build/tracking-min.js"></script>
+    <script type="text/javascript" src="../build/data/face-min.js"></script>
+    <script type="text/javascript" src="../build/data/mouth-min.js"></script>
+    <script type="text/javascript" src="js/three.min.js"></script>
+    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
+    <script type="text/javascript" src="js/physi.js"></script>
+    <script type="text/javascript" src="js/dat.gui.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+    <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
 </head>
 <body>
-  
-  <span class="left">
-    <div class="input-frame">
-      <div class="input-container">
-        <p>Input camera</p>
-        <video muted autoplay id="video" loop="loop" width="320" height="180"></video>
-        <canvas id="canvas" width="320" height="240"></canvas>
+  <center>
+
+    <!--Opening scene-->
+    <div class="frame" id="frame1">
+      <div class="text" id="text1">
+      <center>
+        <h1 id="title">Face Detect</h1>
+        <br><br>
+        <button class="begin">PRESS ENTER</button>
+      </center>
       </div>
     </div>
-  </span>
 
-<script>
-  window.onload = function() {
+    <div class="frame" id="frame2">
+      <div class="text" id="text2">
+      <center>
+        <h1>Selections</h1>
+        <p>Press the corresponding letter to choose that person.</p>
+        <br><br>
+        <!--Male-->
+        <div class="selections">
+          <button class="person" id="bradpitt">[P] Brad Pitt</button>
+          <button class="person" id="ryangosling">[G] Ryan Gosling</button>
+          <button class="person" id="jamesfranco">[F] James Franco</button>
+          <button class="person" id="robertdowney">[D] Robert Downey Jr</button>
+          <!--Nicholas Cage-->
+          <button class="person" id="nicholascage">[S] Surprise me</button>
+        </div>
+
+        <!--Female-->
+        <div class="selections">
+          <button class="person" id="jamiechung">[C] Jamie Chung</button>
+          <button class="person" id="beyonce">[B] Beyonce</button>
+          <button class="person" id="kimkardashian">[K] Kim Kardashian</button>
+          <button class="person" id="jenniferlawrence">[L] Jennifer Lawrence</button>
+        </div>
+      </center>
+      </div>
+    </div>
+    <!--Camera scene-->
+    <div class="frame" id="frame3">
+      <div class="input-frame">
+        <div class="input-container">
+          <video muted autoplay id="video" loop="loop"></video>
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/facedetect.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
     trackingInit();
     CameraInit();
   }
-
   var mediaConstraints = { video: true };
   var index = 1;
   var mediaRecorder;
   var video;
   var stream;
   var play_count = 0;
-
   function CameraInit() {
     navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
   }
-
   function startRecording() {
-
     video.play();
     mediaRecorder = new MediaStreamRecorder(stream);
     mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
@@ -66,7 +114,6 @@
       video.play();
     };
     console.log(mediaRecorder);
-
     var timeInterval = 600 * 1000;
     timeInterval = parseInt(timeInterval);
     // get blob after specific time interval
@@ -76,7 +123,6 @@
     }, timeInterval);
     mediaRecorder.start(timeInterval);
   }
-
   //
   function onMediaInit(Stream) {
     video = document.getElementById('video');
@@ -87,19 +133,13 @@
     video.autoplay = "true";
     stream = Stream;
   }
-
     function onMediaError(e) {
       console.error('media error', e);
     }
-
-
  function trackingInit() {
-  count = 0;
-  INDEX = 1;
-
+  var count = 0;
   var vid = document.getElementById('video');
   var inputContainer = document.querySelector('.input-container');
-
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
   var tracker = new tracking.ObjectTracker("face");
@@ -107,27 +147,21 @@
   tracker.setStepSize(2);
   tracker.setEdgesDensity(0.1);
   tracking.track('#video', tracker);
-
   var imageURLs = [];
   var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr"];
   imageURLs.push("../img/jamiechung.png");
   imageURLs.push("../img/kimk.png");
   imageURLs.push("../img/robertdowneyjr.png");
-
-  var img = new Image();
-  img.src = imageURLs[INDEX];
-
-
+  INDEX = 0;
   tracker.on('track', function(event) {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    var img = new Image();
+    img.src = imageURLs[INDEX];
     event.data.forEach(function(rect) {
       context.strokeStyle = '#a64ceb';
-      // context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-      context.drawImage(img, rect.x, .8*rect.y, 1.2*rect.width, 1.5*rect.height)
+      context.drawImage(img, rect.x, rect.y, rect.width, rect.height)
     });
   });
-
-
       tracking.track('#video', tracker);
       window.plot = function(x, y, w, h, color) {
         var rect = document.createElement('div');
@@ -140,9 +174,7 @@
         rect.style.top = (vid.offsetTop + y) + 'px';
       };
     };
-
-  
-
-</script>
+    </script>
+  </center>
 </body>
 </html>
