@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Face detect</title>
-	<meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <!-- <link rel="stylesheet" type="text/css" href="style/style.css" media="screen"> -->
-    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+  <head>
+  	<meta charset='utf-8'>
+    <title>Hands</title>
     <style>
-    	#video {
+    	body {
     		margin: 0;
-    		position: relative;
-    		width: 100%;
+    		padding: 0;
+    		background-color: white;
     	}
     </style>
-</head>
-<body>
-	<video muted autoplay id="video" loop="loop" width="320" height="180"></video>
-	<!-- <script type="text/javascript"></script> -->
-</body>
+    <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
+    <script type="text/javascript" src="js/three.min.js"></script>
+    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
+    <script type="text/javascript" src="js/physi.js"></script>
+    <script type="text/javascript" src="js/dat.gui.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+  </head>
+  <body>
+  	<div id="stats"></div>
+  	<script type="text/javascript" src="js/script.js"></script>
+  </body>
 </html>
