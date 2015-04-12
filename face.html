@@ -4,8 +4,8 @@
     <meta charset='utf-8'>
     <title>Face Detect</title>
 
-  <style>
-    .rect {
+    <style>
+      .rect {
         border: 2px solid #a64ceb;
         left: -1000px;
         position: absolute;
@@ -21,8 +21,8 @@
         position: absolute;
         margin: 0;
       }
-  </style>
-
+    </style>
+    
     <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
 
@@ -37,8 +37,8 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
     <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
-</head>
-<body>
+  </head>
+  <body>
   <center>
 
     <!--Opening scene-->
@@ -56,7 +56,7 @@
       <div class="text" id="text2">
       <center>
         <h1>Selections</h1>
-        <p>Press the corresponding letter to choose that person.</p>
+        <p>Use your arrow keys to choose a selection. Then press space to confirm your selection.</p>
         <br><br>
         <!--Male-->
         <div class="selections">
@@ -87,6 +87,8 @@
         </div>
       </div>
     </div>
+
+
     <script type="text/javascript" src="js/facedetect.js"></script>
     <script type="text/javascript">
       window.onload = function() {
@@ -136,8 +138,71 @@
     function onMediaError(e) {
       console.error('media error', e);
     }
+
  function trackingInit() {
   var count = 0;
+
+  var INDEX = 0;
+
+//Make a selection
+$(document).keydown(function(e) {
+  switch(e.which) {
+    case 66:  //B
+      //alert("Beyonce");
+      var INDEX = 3;
+      fadeDat();
+      break;
+
+    case 67: //C
+     // alert("Jamie Chung");
+      var INDEX = 0;
+      fadeDat();
+      break;
+
+    case 68: //D
+      //alert("Robert Downey Jr");
+      var INDEX = 2;
+      fadeDat();
+      break;
+
+    case 70: //F
+      //alert("James Franco");
+      var INDEX = 4;
+      fadeDat();
+      break;
+    
+    case 71: //G
+      //alert("Ryan Gosling");
+      var INDEX = 5;
+      fadeDat();
+      break;
+    
+    case 75: //K
+      //alert("Kim Kardashian");
+      var INDEX = 1;
+      fadeDat();
+      break;
+    
+    case 76: //L
+     // alert("Jennifer Lawrence");
+      var INDEX = 6;
+      fadeDat();
+      break;
+
+    case 80: //S
+      //alert("Surprise me");
+      var INDEX = 7;
+      fadeDat();
+      break;
+    
+    case 83: //P
+      //alert("Brad Pitt");
+      var INDEX = 8;
+      fadeDat();
+      break;
+  }
+})
+
   var vid = document.getElementById('video');
   var inputContainer = document.querySelector('.input-container');
   var canvas = document.getElementById('canvas');
@@ -148,11 +213,17 @@
   tracker.setEdgesDensity(0.1);
   tracking.track('#video', tracker);
   var imageURLs = [];
-  var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr"];
+  var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr", "Beyonce", "James Franco", "Ryan Gosling", "Jennifer Lawrence", "Nicholas Cage", "Brad Pitt"];
   imageURLs.push("../img/jamiechung.png");
   imageURLs.push("../img/kimk.png");
   imageURLs.push("../img/robertdowneyjr.png");
-  INDEX = 0;
+  imageURLs.push("../img/beyonce.png");
+  imageURLs.push("../img/jamesfranco.png");
+  imageURLs.push("../img/ryangosling.png");
+  imageURLs.push("../img/jenniferlawrence.png");
+  imageURLs.push("../img/nicholascage.png");
+  imageURLs.push("../img/bradpitt.png")
+
   tracker.on('track', function(event) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     var img = new Image();
@@ -174,7 +245,8 @@
         rect.style.top = (vid.offsetTop + y) + 'px';
       };
     };
+
     </script>
   </center>
-</body>
+  </body>
 </html>

@@ -89,46 +89,10 @@ $(document).keypress(function(e) {
 	}
 })
 
-//Make a selection
-$(document).keydown(function(e) {
-	switch(e.which) {
-		case 66:  //B
-			alert("Beyonce");
-			break;
-
-		case 67: //C
-			alert("Jamie Chung");
-			break;
-
-		case 68: //D
-			alert("Robert Downey Jr");
-			break;
-
-		case 70: //F
-			alert("James Franco");
-			break;
-		
-		case 71: //G
-			alert("Ryan Gosling");
-			break;
-		
-		case 75: //K
-			alert("Kim Kardashian");
-			break;
-		
-		case 76: //L
-			alert("Jennifer Lawrence");
-			break;
-
-		case 80: //S
-			alert("Surprise me");
-			break;
-		
-		case 83: //S
-			alert("Surprise me");
-			break;
-	}
-})
+function fadeDat() {
+	$("#frame2").fadeOut(500)
+	$("#frame3").animate({"opacity": 1}, 500)
+}
 
 
 //When you choose a selection, the next screen appears
