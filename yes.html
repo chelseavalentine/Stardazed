@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <title>Face Detect</title>
+    <title>Stardazed</title>
 
     <style>
       .rect {
@@ -11,13 +11,17 @@
         position: absolute;
         top: -1000px;
       }
+
       body {
         margin: 0;
         padding: 0;
       }
-      video, canvas {
+
+      #video, canvas {
         position: absolute;
+        margin: 0;
       }
+
     </style>
     
     <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
@@ -26,9 +30,6 @@
     <script type="text/javascript" src="../build/tracking-min.js"></script>
     <script type="text/javascript" src="../build/data/face-min.js"></script>
     <script type="text/javascript" src="../build/data/mouth-min.js"></script>
-    <script type="text/javascript" src="js/three.min.js"></script>
-    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
-    <script type="text/javascript" src="js/physi.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
     <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
@@ -51,7 +52,7 @@
       <div class="text" id="text2">
       <center>
         <h1>Selections</h1>
-        <p>Use your arrow keys to choose a selection. Then press space to confirm your selection.</p>
+        <p>Press the corresponding letter to confirm your selection.</p>
         <br><br>
         <!--Male-->
         <div class="selections">
@@ -85,8 +86,8 @@
 
 
     <script type="text/javascript" src="js/facedetect.js"></script>
-    <script>
-  window.onload = function() {
+    <script type="text/javascript">
+      window.onload = function() {
     trackingInit();
     CameraInit();
   }
@@ -131,11 +132,13 @@
     function onMediaError(e) {
       console.error('media error', e);
     }
+
  function trackingInit() {
-  INDEX = 1;
+  var count = 0;
 
+  var INDEX = 0;
 
-  //Make a selection
+//Make a selection
 $(document).keydown(function(e) {
   switch(e.which) {
     case 66:  //B
@@ -143,48 +146,52 @@ $(document).keydown(function(e) {
       INDEX = 3;
       fadeDat();
       break;
+
     case 67: //C
      // alert("Jamie Chung");
       INDEX = 0;
       fadeDat();
       break;
+
     case 68: //D
       //alert("Robert Downey Jr");
       INDEX = 2;
       fadeDat();
       break;
+
     case 70: //F
       //alert("James Franco");
-      var INDEX = 4;
+      INDEX = 4;
       fadeDat();
       break;
     
     case 71: //G
       //alert("Ryan Gosling");
-      var INDEX = 5;
+      INDEX = 5;
       fadeDat();
       break;
     
     case 75: //K
       //alert("Kim Kardashian");
-      var INDEX = 1;
+      INDEX = 1;
       fadeDat();
       break;
     
     case 76: //L
      // alert("Jennifer Lawrence");
-      var INDEX = 6;
+      INDEX = 6;
       fadeDat();
       break;
+
     case 80: //S
       //alert("Surprise me");
-      var INDEX = 7;
+      INDEX = 7;
       fadeDat();
       break;
     
     case 83: //P
       //alert("Brad Pitt");
-      var INDEX = 8;
+      INDEX = 8;
       fadeDat();
       break;
   }
@@ -200,7 +207,7 @@ $(document).keydown(function(e) {
   tracker.setEdgesDensity(0.1);
   tracking.track('#video', tracker);
   var imageURLs = [];
-   var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr", "Beyonce", "James Franco", "Ryan Gosling", "Jennifer Lawrence", "Nicholas Cage", "Brad Pitt"];
+  var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr", "Beyonce", "James Franco", "Ryan Gosling", "Jennifer Lawrence", "Nicholas Cage", "Brad Pitt"];
   imageURLs.push("../img/jamiechung.png");
   imageURLs.push("../img/kimk.png");
   imageURLs.push("../img/robertdowneyjr.png");
@@ -210,14 +217,14 @@ $(document).keydown(function(e) {
   imageURLs.push("../img/jenniferlawrence.png");
   imageURLs.push("../img/nicholascage.png");
   imageURLs.push("../img/bradpitt.png")
-  var img = new Image();
-  img.src = imageURLs[INDEX];
+
   tracker.on('track', function(event) {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    var img = new Image();
+    img.src = imageURLs[INDEX];
     event.data.forEach(function(rect) {
       context.strokeStyle = '#a64ceb';
-      // context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-      context.drawImage(img, rect.x, .8*rect.y, 1.2*rect.width, 1.5*rect.height)
+      context.drawImage(img, rect.x, rect.y, rect.width, rect.height)
     });
   });
       tracking.track('#video', tracker);
@@ -232,7 +239,8 @@ $(document).keydown(function(e) {
         rect.style.top = (vid.offsetTop + y) + 'px';
       };
     };
-  
-</script>
-</body>
+
+    </script>
+  </center>
+  </body>
 </html>
