@@ -1,173 +1,142 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<meta charset='utf-8'>
-    <title>Face Detect</title>
-
+    <meta charset='utf-8'>
+    <title>Stardazed</title>
     <style>
-    	body {
-    		margin: 0;
-    		padding: 0;
-    		overflow: hidden;
-    	}
-
-      #video {
-        position: relative;
-        margin: 0;
+      #video1, #canvas1 {
+        position: absolute;
       }
+      #video2, #canvas2, #canvas3 {
+        position: absolute;
+        padding: 30%;
+    }
     </style>
-    
-    <link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:500,900,700,400' rel='stylesheet' type='text/css'>
-
-    <script type="text/javascript" src="js/three.min.js"></script>
-    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
-    <script type="text/javascript" src="js/physi.js"></script>
-    <script type="text/javascript" src="js/dat.gui.js"></script>
-    <script type="text/javascript" src="js/stats.js"></script>
+    <body>
+      <div class="input-frame">
+        <div class="input-container">
+          <video muted autoplay width="320" height="240" id="video1" loop preload></video>
+          <canvas width="320" height="240" id="canvas1"></canvas>
+        </div>
+        <div class="output-container"> 
+          <canvas width="320" height="240" id="canvas2"></canvas>
+          <canvas width="320" height="240" id="canvas3"></canvas>
+        </div>
+      </div>
+    </body>
+    <script type="text/javascript" src="../build/tracking-min.js"></script>
+    <script type="text/javascript" src="../build/data/face-min.js"></script>
+    <script type="text/javascript" src="../build/data/mouth-min.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+    <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+    <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
+    <script type="text/javascript" src="js/facedetect.js"></script>
+    <script>
+      window.onload = function() {
+    trackingInit();
+  }
+ function trackingInit() {
+  var count = 0;
 
-  </head>
-  <body>
-  <center>
-  	<script type="text/javascript" src="js/facedetect.js"></script>
-    <script type="text/javascript">
-    // the main three.js components
-      var camera, scene, renderer,
+  var INDEX = 0;
 
-      // to keep track of the mouse position
-        mouseX = 0, mouseY = 0,
+//Make a selection
+$(document).keydown(function(e) {
+  switch(e.which) {
+    case 66:  //B
+      //alert("Beyonce");
+      INDEX = 3;
+      fadeDat();
+      break;
 
-      // an array to store our particles in
-        particles = [];
+    case 67: //C
+     // alert("Jamie Chung");
+      INDEX = 0;
+      fadeDat();
+      break;
 
-      // let's get going! 
-      init();
+    case 68: //D
+      //alert("Robert Downey Jr");
+      INDEX = 2;
+      fadeDat();
+      break;
 
-      function init() {
+    case 70: //F
+      //alert("James Franco");
+      INDEX = 4;
+      fadeDat();
+      break;
+    
+    case 71: //G
+      //alert("Ryan Gosling");
+      INDEX = 5;
+      fadeDat();
+      break;
+    
+    case 75: //K
+      //alert("Kim Kardashian");
+      INDEX = 1;
+      fadeDat();
+      break;
+    
+    case 76: //L
+     // alert("Jennifer Lawrence");
+      INDEX = 6;
+      fadeDat();
+      break;
 
-        // Camera params : 
-        // field of view, aspect ratio for render output, near and far clipping plane. 
-        camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
+    case 80: //S
+      //alert("Surprise me");
+      INDEX = 7;
+      fadeDat();
+      break;
+    
+    case 83: //P
+      //alert("Brad Pitt");
+      INDEX = 8;
+      fadeDat();
+      break;
+  }
+})
+
+  var canvas1 = document.getElementById('canvas1');
   
-        // move the camera backwards so we can see stuff! 
-        // default position is 0,0,0. 
-        camera.position.z = 1000;
+  var canvas2 = document.getElementById('canvas2');
+  var context1 = canvas1.getContext('2d');
+  var context2 = canvas2.getContext('2d');
+  var tracker = new tracking.ObjectTracker("face");
+  tracker.setInitialScale(4);
+  tracker.setStepSize(2);
+  tracker.setEdgesDensity(0.1);
 
-        // the scene contains all the 3D object data
-        scene = new THREE.Scene();
-        
-        // camera needs to go in the scene 
-        scene.add(camera);
+  tracking.track('#video1', tracker, { camera: true});
   
-        // and the CanvasRenderer figures out what the 
-        // stuff in the scene looks like and draws it!
-   
-        renderer = new THREE.CanvasRenderer();
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        
   
-        // the renderer's canvas domElement is added to the body
-        document.body.appendChild( renderer.domElement );
+var imageURLs = [];
+  var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr", "Beyonce", "James Franco", "Ryan Gosling", "Jennifer Lawrence", "Nicholas Cage", "Brad Pitt"];
+  imageURLs.push("../img/jamiechung.png");
+  imageURLs.push("../img/kimk.png");
+  imageURLs.push("../img/robertdowneyjr.png");
+  imageURLs.push("../img/beyonce.png");
+  imageURLs.push("../img/jamesfranco.png");
+  imageURLs.push("../img/ryangosling.png");
+  imageURLs.push("../img/jenniferlawrence.png");
+  imageURLs.push("../img/nicholascage.png");
+  imageURLs.push("../img/bradpitt.png")
 
-        makeParticles(); 
-      
-        // add the mouse move listener
-        document.addEventListener( 'mousemove', onMouseMove, false );
-        
-        // render 30 times a second (should also look 
-        // at requestAnimationFrame) 
-        setInterval(update,1000/30); 
-      
-      }
+  tracker.on('track', function(event) {
+    context1.clearRect(0, 0, canvas1.width, canvas1.height);
+    context2.clearRect(0, 0, canvas2.width, canvas2.height);
+    var img = new Image();
+    img.src = imageURLs[INDEX];
+    event.data.forEach(function(rect) {
+      //context.strokeStyle = '#a64ceb';
+      context1.drawImage(img, rect.x, rect.y, rect.width, rect.height)
+      context2.drawImage(img, rect.x, rect.y, rect.width, rect.height)
+    });
+  });
+ };
 
-      // the main update function, called 30 times a second
 
-      function update() {
-
-        updateParticles();
-
-        // and render the scene from the perspective of the camera
-        renderer.render( scene, camera );
-
-      }
-
-      // creates a random field of Particle objects
-      
-      function makeParticles() { 
-        
-        var particle, material; 
-
-        // we're gonna move from z position -1000 (far away) 
-        // to 1000 (where the camera is) and add a random particle at every pos. 
-        for ( var zpos= -1000; zpos < 1000; zpos+=20 ) {
-    
-          // we make a particle material and pass through the 
-          // colour and custom particle render function we defined. 
-          material = new THREE.ParticleCanvasMaterial( { color: 0xffffff, program: particleRender } );
-          // make the particle
-          particle = new THREE.Particle(material);
-    
-          // give it a random x and y position between -500 and 500
-          particle.position.x = Math.random() * 1000 - 500;
-          particle.position.y = Math.random() * 1000 - 500;
-    
-          // set its z position
-          particle.position.z = zpos;
-    
-          // scale it up a bit
-          particle.scale.x = particle.scale.y = 10;
-    
-          // add it to the scene
-          scene.add( particle );
-    
-          // and to the array of particles. 
-          particles.push(particle); 
-        }
-        
-      }
-      
-      // there isn't a built in circle particle renderer 
-      // so we have to define our own. 
-
-      function particleRender( context ) {
-        
-        // we get passed a reference to the canvas context
-        context.beginPath();
-        // and we just have to draw our shape at 0,0 - in this
-        // case an arc from 0 to 2Pi radians or 360º - a full circle!
-        context.arc( 0, 0, 1, 0,  Math.PI * 2, true );
-        context.fill();
-      };
-
-      
-      // moves all the particles dependent on mouse position
-      
-      function updateParticles() { 
-        
-        // iterate through every particle
-        for(var i=0; i<particles.length; i++) {
-    
-          particle = particles[i]; 
-    
-          // and move it forward dependent on the mouseY position. 
-          particle.position.z +=  mouseY * 0.1;
-    
-          // if the particle is too close move it to the back
-          if(particle.position.z>1000) particle.position.z-=2000; 
-    
-        }
-  
-      }
-    
-    // called when the mouse moves
-      function onMouseMove( event ) {
-        // store the mouseX and mouseY position 
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-      }
-    </script>
-  </center>
-  </body>
+</script>
 </html>
