@@ -1,39 +1,39 @@
 @import 'color';
 
 .frame {
-	margin: 0;
-	padding: 0;
-	top: 0;
-	left: 0;
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	background-color: $black;
-	display: block;
-	opacity: 0;
+  background-color: $black;
+  display: block;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 #frame1 {
-	opacity: 1;
+  opacity: 1;
 }
 
 .text {
-	position: relative;
-	width: 70%;
+  position: relative;
+  width: 70%;
 }
 
 #text1 {
-	top: 35%;
+  top: 35%;
 }
 
 #frame2 {
-	width: 100%;
+  width: 100%;
 }
 
 #text2 {
-	top: 20%;
+  top: 20%;
 }
 
 #stats2 {
-	display: none;
+  display: none;
 }

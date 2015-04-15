@@ -3,14 +3,14 @@
 @import 'page';
 
 .person {
-	background-color: $lightgreen500;
-	display: block;
-	width: 250px;
-	margin-bottom: 15px;
+  background-color: $lightgreen500;
+  display: block;
+  margin-bottom: 15px;
+  width: 250px;
 }
 
 .selections {
-	display: inline-block;
-	margin-right: 25px;
-	vertical-align: top;
+  display: inline-block;
+  margin-right: 25px;
+  vertical-align: top;
 }

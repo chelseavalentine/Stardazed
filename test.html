@@ -3,140 +3,161 @@
   <head>
     <meta charset='utf-8'>
     <title>Stardazed</title>
+
     <style>
       #video1, #canvas1 {
         position: absolute;
       }
+
       #video2, #canvas2, #canvas3 {
         position: absolute;
         padding: 30%;
-    }
+      }
     </style>
-    <body>
-      <div class="input-frame">
-        <div class="input-container">
-          <video muted autoplay width="320" height="240" id="video1" loop preload></video>
-          <canvas width="320" height="240" id="canvas1"></canvas>
-        </div>
-        <div class="output-container"> 
-          <canvas width="320" height="240" id="canvas2"></canvas>
-          <canvas width="320" height="240" id="canvas3"></canvas>
-        </div>
-      </div>
-    </body>
+
     <script type="text/javascript" src="../build/tracking-min.js"></script>
     <script type="text/javascript" src="../build/data/face-min.js"></script>
     <script type="text/javascript" src="../build/data/mouth-min.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
     <script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
-    <script type="text/javascript" src="js/facedetect.js"></script>
-    <script>
-      window.onload = function() {
-    trackingInit();
-  }
- function trackingInit() {
-  var count = 0;
+    <script type="text/javascript" src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+  </head>
 
-  var INDEX = 0;
-
-//Make a selection
-$(document).keydown(function(e) {
-  switch(e.which) {
-    case 66:  //B
-      //alert("Beyonce");
-      INDEX = 3;
-      fadeDat();
-      break;
-
-    case 67: //C
-     // alert("Jamie Chung");
-      INDEX = 0;
-      fadeDat();
-      break;
-
-    case 68: //D
-      //alert("Robert Downey Jr");
-      INDEX = 2;
-      fadeDat();
-      break;
-
-    case 70: //F
-      //alert("James Franco");
-      INDEX = 4;
-      fadeDat();
-      break;
-    
-    case 71: //G
-      //alert("Ryan Gosling");
-      INDEX = 5;
-      fadeDat();
-      break;
-    
-    case 75: //K
-      //alert("Kim Kardashian");
-      INDEX = 1;
-      fadeDat();
-      break;
-    
-    case 76: //L
-     // alert("Jennifer Lawrence");
-      INDEX = 6;
-      fadeDat();
-      break;
-
-    case 80: //S
-      //alert("Surprise me");
-      INDEX = 7;
-      fadeDat();
-      break;
-    
-    case 83: //P
-      //alert("Brad Pitt");
-      INDEX = 8;
-      fadeDat();
-      break;
-  }
-})
-
-  var canvas1 = document.getElementById('canvas1');
+  <body>
+    <div class="input-frame">
+      <div class="input-container">
+        <video muted autoplay width="320" height="240" id="video1" loop preload></video>
+        <canvas width="320" height="240" id="canvas1"></canvas>
+      </div>
+      <div class="output-container"> 
+        <canvas width="320" height="240" id="canvas2"></canvas>
+        <canvas width="320" height="240" id="canvas3"></canvas>
+      </div>
+    </div>
   
-  var canvas2 = document.getElementById('canvas2');
-  var context1 = canvas1.getContext('2d');
-  var context2 = canvas2.getContext('2d');
-  var tracker = new tracking.ObjectTracker("face");
-  tracker.setInitialScale(4);
-  tracker.setStepSize(2);
-  tracker.setEdgesDensity(0.1);
+  <script type="text/javascript" src="js/facedetect.js"></script>
+  <script>
+    window.onload = function() {
+      trackingInit();
+    };
 
-  tracking.track('#video1', tracker, { camera: true});
-  
-  
-var imageURLs = [];
-  var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr", "Beyonce", "James Franco", "Ryan Gosling", "Jennifer Lawrence", "Nicholas Cage", "Brad Pitt"];
-  imageURLs.push("../img/jamiechung.png");
-  imageURLs.push("../img/kimk.png");
-  imageURLs.push("../img/robertdowneyjr.png");
-  imageURLs.push("../img/beyonce.png");
-  imageURLs.push("../img/jamesfranco.png");
-  imageURLs.push("../img/ryangosling.png");
-  imageURLs.push("../img/jenniferlawrence.png");
-  imageURLs.push("../img/nicholascage.png");
-  imageURLs.push("../img/bradpitt.png")
+    function trackingInit() {
+      var count = 0;
+      var INDEX = 0;
+    }
 
-  tracker.on('track', function(event) {
-    context1.clearRect(0, 0, canvas1.width, canvas1.height);
-    context2.clearRect(0, 0, canvas2.width, canvas2.height);
-    var img = new Image();
-    img.src = imageURLs[INDEX];
-    event.data.forEach(function(rect) {
-      //context.strokeStyle = '#a64ceb';
-      context1.drawImage(img, rect.x, rect.y, rect.width, rect.height)
-      context2.drawImage(img, rect.x, rect.y, rect.width, rect.height)
+    //Make a selection
+    $(document).keydown(function(e) {
+      switch(e.which) {
+        case 66: //B
+          //Beyonce
+          INDEX = 3; 
+          fadeDat();
+          break;
+
+        case 67: //C
+          //Jamie Chung
+          INDEX = 0;
+          fadeDat();
+          break;
+
+        case 68: //D
+          //Robert Downey Jr
+          INDEX = 2;
+          fadeDat();
+          break;
+
+        case 70: //F
+          //James Franco
+          INDEX = 4;
+          fadeDat();
+          break;
+
+        case 71: //G
+          //Ryan Gosling
+          INDEX = 5;
+          fadeDat();
+          break;
+
+        case 75: //K
+          //Kim Kardashian
+          INDEX = 1;
+          fadeDat();
+          break;
+
+        case 76: //L
+          //Jennifer Lawrence
+          INDEX = 6;
+          fadeDat();
+          break;
+
+        case 80: //S
+          //Surprise me (Nicholas Cage trololol)
+          INDEX = 7;
+          fadeDat();
+          break;
+
+        case 83: //P
+          //Brad Pitt
+          INDEX = 8;
+          fadeDat();
+          break;
+      }
     });
-  });
- };
 
+    var canvas1 = document.getElementById('canvas1');
+    var canvas2 = document.getElementById('canvas2');
 
-</script>
+    var context1 = canvas1.getContext('2d');
+    var context2 = canvas2.getContext('2d');
+
+    var tracker = new tracking.ObjectTracker("face");
+    tracker.setInitialScale(4);
+    tracker.setStepSize(2);
+    tracker.setEdgesDensity(0.1);
+
+    tracking.track('#video1', tracker, {camera: true});
+
+    var imageURLs = [];
+
+    var imageNames = [
+      'Jamie Chung',
+      'Kim Kardashian',
+      'Robert Downey Jr',
+      'Beyonce',
+      'James Franco',
+      'Ryan Gosling',
+      'Jennifer Lawrence',
+      'Nicholas Cage',
+      'Brad Pitt'
+    ];
+      
+      
+    var imageURLs = [];
+    var imagesNames = ['Jamie Chung', "Kim Kardashian", "Robert Downey Jr", "Beyonce", "James Franco", "Ryan Gosling", "Jennifer Lawrence", "Nicholas Cage", "Brad Pitt"];
+
+    imageURLs.push("../img/jamiechung.png");
+    imageURLs.push("../img/kimk.png");
+    imageURLs.push("../img/robertdowneyjr.png");
+    imageURLs.push("../img/beyonce.png");
+    imageURLs.push("../img/jamesfranco.png");
+    imageURLs.push("../img/ryangosling.png");
+    imageURLs.push("../img/jenniferlawrence.png");
+    imageURLs.push("../img/nicholascage.png");
+    imageURLs.push("../img/bradpitt.png");
+
+    tracker.on('track', function(event) {
+      context1.clearRect(0, 0, canvas1.width, canvas1.height);
+      context2.clearRect(0, 0, canvas2.width, canvas2.height);
+      var img = new Image();
+      img.src = imageURLs[INDEX];
+      event.data.forEach(function(rect) {
+        //context.strokeStyle = '#a64ceb';
+        context1.drawImage(img, rect.x, rect.y, rect.width, rect.height);
+        context2.drawImage(img, rect.x, rect.y, rect.width, rect.height);
+      });
+    });
+  </script>
+</body>
 </html>
+    
