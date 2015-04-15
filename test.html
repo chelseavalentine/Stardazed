@@ -9,7 +9,7 @@
         position: absolute;
       }
 
-      #video2, #canvas2, #canvas3 {
+      #video2, #canvas2{
         position: absolute;
         padding: 30%;
       }
@@ -30,11 +30,11 @@
         <canvas width="320" height="240" id="canvas1"></canvas>
       </div>
       <div class="output-container"> 
+        <canvas width="320" height="240" id="video2"></canvas>
         <canvas width="320" height="240" id="canvas2"></canvas>
-        <canvas width="320" height="240" id="canvas3"></canvas>
       </div>
     </div>
-  
+
   <script type="text/javascript" src="js/facedetect.js"></script>
 <script>
       window.onload = function() {
@@ -97,11 +97,14 @@ $(document).keydown(function(e) {
       break;
   }
 })
+  var video = document.getElementById('video1');
   var canvas1 = document.getElementById('canvas1');
-  
   var canvas2 = document.getElementById('canvas2');
+  var video2 = document.getElementById('video2');
   var context1 = canvas1.getContext('2d');
   var context2 = canvas2.getContext('2d');
+  var video2_ctx = video2.getContext('2d');
+
   var tracker = new tracking.ObjectTracker("face");
   tracker.setInitialScale(4);
   tracker.setStepSize(2);
@@ -120,14 +123,18 @@ var imageURLs = [];
   imageURLs.push("../img/jenniferlawrence.png");
   imageURLs.push("../img/nicholascage.png");
   imageURLs.push("../img/bradpitt.png")
+
   tracker.on('track', function(event) {
     context1.clearRect(0, 0, canvas1.width, canvas1.height);
     context2.clearRect(0, 0, canvas2.width, canvas2.height);
+    video2_ctx.clearRect(0, 0, video2.width, video2.height);
+
     var img = new Image();
     img.src = imageURLs[INDEX];
     event.data.forEach(function(rect) {
       //context.strokeStyle = '#a64ceb';
-      context1.drawImage(img, rect.x, rect.y, rect.width, rect.height)
+      context1.drawImage(img, rect.x, rect.y, rect.width, rect.height);
+      video2_ctx.drawImage(video, 0, 0, video.width, video.height);
       context2.drawImage(img, rect.x, rect.y, rect.width, rect.height)
     });
   });
