@@ -128,13 +128,13 @@ var imageURLs = [];
     context1.clearRect(0, 0, canvas1.width, canvas1.height);
     context2.clearRect(0, 0, canvas2.width, canvas2.height);
     video2_ctx.clearRect(0, 0, video2.width, video2.height);
+    video2_ctx.drawImage(video, 0, 0, video.width, video.height);
 
     var img = new Image();
     img.src = imageURLs[INDEX];
     event.data.forEach(function(rect) {
       //context.strokeStyle = '#a64ceb';
       context1.drawImage(img, rect.x, rect.y, rect.width, rect.height);
-      video2_ctx.drawImage(video, 0, 0, video.width, video.height);
       context2.drawImage(img, rect.x, rect.y, rect.width, rect.height)
     });
   });
