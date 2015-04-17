@@ -104,6 +104,10 @@ $(document).keydown(function(e) {
       break;
   }
 })
+
+// video1 is the original camera feed, canvas1 is the overlay, context1 is the context for the canvas1 overlay computation.
+//video2 copies video1 camera feed but exists as a canvas, video2_ctx is the corresponding context
+//canvas2 is the 2nd overlay canvas on top of video2, context2 is the corresponding context
   var video = document.getElementById('video1');
   var canvas1 = document.getElementById('canvas1');
   var canvas2 = document.getElementById('canvas2');
@@ -132,15 +136,18 @@ var imageURLs = [];
   imageURLs.push("../img/bradpitt.png")
 
   tracker.on('track', function(event) {
+    //clear previous frame to prepare for next frame
     context1.clearRect(0, 0, canvas1.width, canvas1.height);
     context2.clearRect(0, 0, canvas2.width, canvas2.height);
     video2_ctx.clearRect(0, 0, video2.width, video2.height);
+
+    // copies video1 camera feed in second canvas
     video2_ctx.drawImage(video, 0, 0, video.width, video.height);
 
     var img = new Image();
     img.src = imageURLs[INDEX];
     event.data.forEach(function(rect) {
-      //context.strokeStyle = '#a64ceb';
+      // overlaying images in first and second canvas
       context1.drawImage(img, rect.x, rect.y, rect.width, rect.height);
       context2.drawImage(img, rect.x, rect.y, rect.width, rect.height)
     });
