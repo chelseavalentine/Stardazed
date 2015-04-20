@@ -13,7 +13,7 @@ You choose which celebrity you want to see, put on the Oculus, and then watch as
 
 ## Challenge we ran into
 
-Originally, there weren't any Oculi left for us to loan out, so we had to change our decision to create an Oculus hacl. Luckily, a group ended up returning an Oculus halfway through the hackathon, so we changed our hack to an Oculus hack, but we didn't have as much time left as we could have.
+Originally, there weren't any Oculi left for us to loan out, so we had to change our decision to create an Oculus hack. Luckily, a group ended up returning an Oculus halfway through the hackathon, so we changed our hack to an Oculus hack, but we didn't have as much time left as we could have.
 
 
 ## Accomplishment that we proud of
